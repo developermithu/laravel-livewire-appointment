@@ -3,14 +3,18 @@
 namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class UserList extends Component
 {
+    use WithFileUploads;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    public $search = null;
 
     // public $name, $email, $password, $password_confirmation; instead of
 
@@ -32,9 +36,11 @@ class UserList extends Component
             'name' => 'required | string',
             'email' => 'required | email | unique:users',
             'password' => 'required | confirmed | min:6',
+            // 'avatar' => 'required | image | max:1048 | mimes:png',
         ])->validate();
 
         $validatedData['password'] = bcrypt($validatedData['password']);
+
         User::create($validatedData);
 
         $this->state = [];
@@ -68,16 +74,15 @@ class UserList extends Component
         return redirect()->back();
     }
 
+    // Delete Part
     public function confirmUserRemoval($userId)
     {
-        // dd($userId);
         $this->removeUser = $userId;
         $this->dispatchBrowserEvent('show-delete-modal');
     }
 
     public function deleteUser()
     {
-        // dd($userId);
         $user = User::findOrFail($this->removeUser);
         $user->delete();
         $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'User deleted successfully.']);
@@ -85,7 +90,9 @@ class UserList extends Component
 
     public function render()
     {
-        $users = User::latest()->paginate(5);
+        $users = User::where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('email', 'like', '%' . $this->search . '%')
+            ->latest()->paginate(5);
         return view('livewire.admin.users.user-list', compact('users'));
     }
 }

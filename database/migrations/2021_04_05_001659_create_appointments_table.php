@@ -20,7 +20,7 @@ class CreateAppointmentsTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->text('note')->nullable();
-            $table->string('status');
+            $table->enum('status', ['SCHEDULED', 'CLOSED']);
             $table->timestamps();
         });
     }

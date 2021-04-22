@@ -59,23 +59,30 @@ Dashboard
 
 <li class="nav-item {{request()->is('admin/users') ? 'active' : ""}} ">
     <a class="nav-link" href="{{route('admin.users')}}">
-        <i class="material-icons">group</i>
-        <p>User</p>
+        <i class="material-icons">people</i>
+        <p>Users</p>
     </a>
-    </li>
+</li>
 
-<li class="nav-item {{request()->is('admin/appointments') ? 'active' : ""}} ">
+<li class="nav-item {{Route::is('admin.clients*') ? 'active' : ""}} ">
+    <a class="nav-link" href="{{route('admin.clients')}}">
+        <i class="material-icons">person</i>
+        <p>Clients</p>
+    </a>
+</li>
+
+<li class="nav-item {{Route::is('admin.appointments*') ? 'active' : ""}} ">
     <a class="nav-link" href="{{route('admin.appointments')}}">
         <i class="material-icons">calendar_view_month</i>
-        <p>Appointment</p>
+        <p>Appointments</p>
     </a>
-    </li>
+</li>
 
 <li class="nav-item">
 <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
     <i class="material-icons">image</i>
     <p>
-        Pages
+        Extra
         <b class="caret"></b>
     </p>
 </a>
@@ -103,12 +110,6 @@ Dashboard
 </div>
 </li>
 
-<li class="nav-item">
-<a class="nav-link" href="post.html">
-    <i class="material-icons">date_range</i>
-    <p>Post</p>
-</a>
-</li>
 
 </ul>
 </div>

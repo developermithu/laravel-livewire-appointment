@@ -45,6 +45,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
         <!-- CSS Files -->
         <link href="{{asset('backend/assets/css/material-dashboard.min6c54.css?v=2.2.2')}}" rel="stylesheet" />
+
+        @stack('css')
         @livewireStyles
     </head>
 
@@ -106,10 +108,6 @@
         <script src="{{asset('backend/assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
         <!-- Plugin for the momentJs  -->
         <script src="{{asset('backend/assets/js/plugins/moment.min.js')}}"></script>
-        <!--  Plugin for Sweet Alert -->
-        <script src="{{asset('backend/assets/js/plugins/sweetalert2.js')}}"></script>
-        <!-- Forms Validations Plugin -->
-        <script src="{{asset('backend/assets/js/plugins/jquery.validate.min.js')}}"></script>
         <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
         <script src="{{asset('backend/assets/js/plugins/jquery.bootstrap-wizard.js')}}"></script>
         <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
@@ -129,7 +127,7 @@
         <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
         <script src="{{asset('backend/assets/js/plugins/nouislider.min.js')}}"></script>
         <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-        <script src="cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js')}}"></script>
+        <script src="cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
         <!-- Library for adding dinamically elements -->
         <script src="{{asset('backend/assets/js/plugins/arrive.min.js')}}"></script>
         <!--  Google Maps Plugin    -->
@@ -204,6 +202,9 @@
                 $('#form').modal('hide');
                 toastr.success(e.detail.message);
             })
+            window.addEventListener('success', e => {
+                toastr.success(e.detail.message);
+            })
            });
         </script>
         <script>
@@ -221,7 +222,9 @@
                 $('#confirmationModal').modal('hide');
                 toastr.success(e.detail.message);
             })
-        </script>
+</script>
+      
+@stack('js')
 
 @livewireScripts
     </body>
